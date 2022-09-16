@@ -1,6 +1,8 @@
 package com.tlglearning.cards.model;
 
-public class Card {
+import java.util.Objects;
+
+public class Card implements Comparable<Card>{
   private final Rank rank;
   private final Suit suit;
 
@@ -15,19 +17,32 @@ public class Card {
   public Suit suit(){
     return suit;
   }
+  @Override
+  public int hashCode() {
+    return Objects.hash(rank, suit);// FIXME: 9/16/2022  Move this to initialization.
+  }
 
+  @Override
+  public boolean equals(Object obj) {
+    boolean result;
+    if(this == obj){
+      result = true;
+    }else if (obj instanceof Card){
+      Card other = (Card) obj;
+      result = (this.rank == other.rank && this.suit == other.suit);
+    }else{
+      result = false;
+    }
+    return result;
+
+  }
   @Override
   public String toString() {
     return rank.symbol() + suit.symbol();
   }
 
   @Override
-  public int hashCode() {
-    return super.hashCode();
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    return super.equals(obj);
+  public int compareTo(Card other) {
+    return 0;// TODO: 9/16/2022 Replace with comparison based on suit and rank. 
   }
 }
