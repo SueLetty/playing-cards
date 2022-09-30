@@ -14,11 +14,12 @@ import java.util.Random;
 
 
 public class Trick {
+
   private final Random rng;
   private final List<Card> blackPile;
   private final List<Card> redPile;
 
-  public Trick(Random rng){
+  public Trick(Random rng) {
     this.rng = rng;
     Deck deck = new Deck();
     deck.shuffle(rng);
@@ -31,9 +32,9 @@ public class Trick {
     for (Iterator<Card> iterator = deck.iterator(); iterator.hasNext(); ) {
       Card indicator = iterator.next();
       Card next = iterator.next();
-      if (indicator.suit().color() == Color.BLACK){
+      if (indicator.suit().color() == Color.BLACK) {
         blackPile.add(next);
-      }else{
+      } else {
         redPile.add(next);
       }
     }
@@ -42,30 +43,31 @@ public class Trick {
   public static void main(String[] args) {
     Trick trick = new Trick(new SecureRandom());
     trick.swapBetweenPiles();
-    trick.displayPile(trick.blackPile,Color.BLACK);
-    trick.displayPile(trick.redPile,Color.RED);
+    trick.displayPile(trick.blackPile, Color.BLACK);
+    trick.displayPile(trick.redPile, Color.RED);
 
   }
 
-  private void swapBetweenPiles(){
-    int maxSwapCount = Math.min(redPile.size(),blackPile.size());
-    int swapCount = rng.nextInt(maxSwapCount+1);
-    for(int i = 0; i < swapCount; i++){
+  private void swapBetweenPiles() {
+    int maxSwapCount = Math.min(redPile.size(), blackPile.size());
+    int swapCount = rng.nextInt(maxSwapCount + 1);
+    for (int i = 0; i < swapCount; i++) {
       redPile.add(blackPile.remove(0));
       blackPile.add(redPile.remove(0));
     }
   }
 
-  private void displayPile(List<Card> cards, Suit.Color color){
+  private void displayPile(List<Card> cards, Suit.Color color) {
     cards.sort(Comparator
-        .comparing((Card card)->card.suit().color())
+        .comparing((Card card) -> card.suit().color())
         .thenComparing(Card::suit)
         .thenComparing(Card::rank)
     );
     int count = countColor(cards, color);
     System.out.printf("%s: %s: %d%n", color, cards, count);
   }
-  private int countColor(Collection<Card> cards, Suit.Color color){
+
+  private int countColor(Collection<Card> cards, Suit.Color color) {
     return (int) cards
         .stream()
         .filter((card) -> card.suit().color() == color)

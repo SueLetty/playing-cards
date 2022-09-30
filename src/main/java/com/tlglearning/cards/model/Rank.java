@@ -15,12 +15,15 @@ public enum Rank {
   QUEEN("Q"),
   KING("k");
   private final String symbol;
-  Rank(String symbol){
+
+  Rank(String symbol) {
     this.symbol = symbol;
   }
-  public String symbol(){
+
+  public String symbol() {
     return symbol;
   }
+
   public String toString() {
     String name = name();
     return name.charAt(0) + name.substring(1).toLowerCase();

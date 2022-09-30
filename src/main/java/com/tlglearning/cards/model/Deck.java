@@ -6,16 +6,15 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Consumer;
 
-public class Deck implements Iterable<Card>{
+public class Deck implements Iterable<Card> {
 
   private final List<Card> cards;
 
   public Deck() {
     cards = new ArrayList<>();
-    for(Suit suit: Suit.values()){
-      for(Rank rank: Rank.values()){
+    for (Suit suit : Suit.values()) {
+      for (Rank rank : Rank.values()) {
         Card card = new Card(rank, suit);
         cards.add(card);
       }
@@ -26,18 +25,21 @@ public class Deck implements Iterable<Card>{
   public Iterator<Card> iterator() {
     return Collections.unmodifiableList(cards).iterator();
   }
-  public void shuffle(Random rng){
+
+  public void shuffle(Random rng) {
     Collections.shuffle(cards, rng);
   }
-  public void shuffle(){
+
+  public void shuffle() {
     Collections.shuffle(cards);
   }
 
-  public void sort(){
+  public void sort() {
     cards.sort(null);
 
   }
-  public void sort(Comparator<Card> comparator){
+
+  public void sort(Comparator<Card> comparator) {
     cards.sort(comparator);
 
   }
@@ -50,11 +52,11 @@ public class Deck implements Iterable<Card>{
   @Override
   public boolean equals(Object obj) {
     boolean result;
-    if(this == obj){
+    if (this == obj) {
       result = true;
-    }else if(obj instanceof Deck){
-      result = cards.equals(((Deck)obj).cards);
-    }else{
+    } else if (obj instanceof Deck) {
+      result = cards.equals(((Deck) obj).cards);
+    } else {
       result = false;
     }
     return result;
